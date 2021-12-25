@@ -49,7 +49,7 @@ function AudioPlayer() {
 
     return (
         <Container maxWidth="xs" className={classes.container} style={{
-            background: backGround ? `linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.9)) ,url(${backGround})` : "#ccc",
+            background: backGround && `linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.9)) ,url(${backGround})`,
         }}>
 
             {
@@ -66,7 +66,7 @@ function AudioPlayer() {
                 })
             }
 
-            < div className='flex justify-evenly items-center mt-32 w-64 m-auto' >
+            < div className='flex justify-evenly items-center mt-24 w-64 m-auto' >
                 <MdSkipPrevious
                     className='text-4xl text-white cursor-pointer'
                     onClick={() => {
@@ -83,6 +83,7 @@ function AudioPlayer() {
                         setIsPlay(false)
                     }} />
             </div >
+            <h1 className='mt-8 text-purple-600 text-2xl text-center'>By Ho3ein Ghiasi</h1>
         </Container >
     )
 }
