@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Box, Button, Container, Fab, Slider } from '@mui/material'
+import { Container } from '@mui/material'
 import classes from './AudioPlayerStyles.module.css'
-import { HiVolumeUp } from 'react-icons/hi'
 import { BsFillPlayFill, BsPauseFill } from 'react-icons/bs'
 import tnt from '../music/TNT2.mp3'
 import eshgh from '../music/EshghAst.mp3'
@@ -77,7 +76,7 @@ function AudioPlayer() {
             setDuration(seconds);
             progressBar.current.max = seconds;
         }
-    }, [audioRef?.current?.loadedmetadata, audioRef?.current?.readyState])
+    }, [audioRef?.current?.loadedmetadata, audioRef?.current?.readyState,audioRef])
 
     return (
         <Container maxWidth="xs" className={classes.container} style={{
