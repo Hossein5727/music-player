@@ -19,18 +19,25 @@ function AudioPlayer() {
 
     const [isPlay, setIsPlay] = useState(false);
     const audioRef = useRef();
+    const progressBar = useRef()
+    const animationRef = useRef();
     const [nextMusic, setNextMusic] = useState(1)
     const [backGround, setBackGround] = useState("")
+    const [timeLine, setTimeLine] = useState()
+    const [duration, setDuration] = useState(0);
+
 
     const playHandler = () => {
-        console.log(audioRef);
+        console.log(audioRef.current.currentTime);
         if (!isPlay) {
             audioRef.current.play()
             setIsPlay(true)
+            animationRef.current = requestAnimationFrame(whilePlaying)
         }
         if (isPlay) {
             audioRef.current.pause()
             setIsPlay(false)
+            cancelAnimationFrame(animationRef.current);
         }
     }
 
@@ -45,7 +52,38 @@ function AudioPlayer() {
     const prevSong = () => {
         if (nextMusic > 1) setNextMusic(nextMusic - 1)
     }
-    // console.log(backGround);
+
+
+    const whilePlaying = () => {
+        progressBar.current.value = audioRef.current.currentTime;
+        changePlayerCurrentTime();
+        animationRef.current = requestAnimationFrame(whilePlaying);
+    }
+
+    const changeRange = () => {
+        audioRef.current.currentTime = progressBar.current.value;
+        changePlayerCurrentTime();
+    }
+
+    const changePlayerCurrentTime = () => {
+        progressBar.current.style.setProperty('--seek-before-width', `${progressBar.current.value / duration * 100}%`)
+        setTimeLine(progressBar.current.value);
+    }
+
+
+    useEffect(() => {
+        // if (audioRef.current, timeLine) {
+        //     progressBar.current.value = audioRef.current.currentTime
+        //     audioRef.current.currentTime = timeLine
+        //     // setTimeLine(audioRef.current.currentTime)
+        //     console.log(progressBar.current.value);
+        // }
+        if (progressBar.current) {
+            const seconds = Math.floor(audioRef.current.duration);
+            setDuration(seconds);
+            progressBar.current.max = seconds;
+        }
+    }, [audioRef?.current?.loadedmetadata, audioRef?.current?.readyState])
 
     return (
         <Container maxWidth="xs" className={classes.container} style={{
@@ -83,6 +121,14 @@ function AudioPlayer() {
                         setIsPlay(false)
                     }} />
             </div >
+            {audioRef.current && (
+                <input
+                    type="range"
+                    ref={progressBar}
+                    defaultValue={0}
+                    onChange={changeRange}
+                />
+            )}
             <h1 className='mt-8 text-purple-600 text-2xl text-center'>By Ho3ein Ghiasi</h1>
         </Container >
     )
