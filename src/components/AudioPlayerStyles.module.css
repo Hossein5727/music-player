@@ -107,8 +107,9 @@
 
 
   input[type=range] {
+    background: none;
     -webkit-appearance: none;
-    margin: 20px 0 3px 0;
+    margin: 32px 0 3px 0;
     width: 100%;
   }
   input[type=range]:focus {
