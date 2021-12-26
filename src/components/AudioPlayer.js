@@ -72,12 +72,6 @@ function AudioPlayer() {
 
 
     useEffect(() => {
-        // if (audioRef.current, timeLine) {
-        //     progressBar.current.value = audioRef.current.currentTime
-        //     audioRef.current.currentTime = timeLine
-        //     // setTimeLine(audioRef.current.currentTime)
-        //     console.log(progressBar.current.value);
-        // }
         if (progressBar.current) {
             const seconds = Math.floor(audioRef.current.duration);
             setDuration(seconds);
